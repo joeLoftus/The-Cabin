@@ -16,7 +16,8 @@ var commentRoutes    = require("./routes/comments"),
     postRoutes = require("./routes/posts"),
     indexRoutes      = require("./routes/index")
     
-mongoose.connect("mongodb://localhost/the_cabin_5");
+//mongoose.connect("mongodb://localhost/the_cabin_5");
+mongoose.connect("mongodb://Joe:higithub@ds151752.mlab.com:51752/the_cabin")
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
