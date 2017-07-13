@@ -15,17 +15,21 @@ router.get("/register", function(req, res){
 
 //handle sign up logic
 router.post("/register", function(req, res){
-    var newUser = new User({username: req.body.username});
-    User.register(newUser, req.body.password, function(err, user){
-        if(err){
-            req.flash("error", err.message);
-            return res.render("register");
-        }
-        passport.authenticate("local")(req, res, function(){
-           req.flash("success", "Welcome to YelpCamp " + user.username);
-           res.redirect("/posts"); 
+    if (req.body.secretWord === "#Bumping12"){
+        var newUser = new User({username: req.body.username});
+        User.register(newUser, req.body.password, function(err, user){
+            if(err){
+                req.flash("error", err.message);
+                return res.render("register");
+            }
+            passport.authenticate("local")(req, res, function(){
+               req.flash("success", "Welcome to YelpCamp " + user.username);
+               res.redirect("/posts"); 
+            });
         });
-    });
+    } else{
+        req.flash("error");
+    }
 });
 
 //show login form

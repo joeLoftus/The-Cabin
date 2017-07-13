@@ -18,7 +18,7 @@ var commentRoutes    = require("./routes/comments"),
 
 
 mongoose.connect(process.env.DATABASEURL);
-//mongoose.connect("mongodb://Joe:higithub@ds151752.mlab.com:51752/the_cabin")
+
 
 
 app.use(bodyParser.urlencoded({extended: true}));
