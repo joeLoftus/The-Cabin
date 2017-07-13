@@ -15,7 +15,7 @@ router.get("/register", function(req, res){
 
 //handle sign up logic
 router.post("/register", function(req, res){
-    if (req.body.secretWord === "#Bumping12"){
+    if (req.body.secretWord === process.env.SECRETWORD){
         var newUser = new User({username: req.body.username});
         User.register(newUser, req.body.password, function(err, user){
             if(err){
@@ -43,7 +43,7 @@ router.post("/login", passport.authenticate("local",
     {
         failureRedirect: "/login"
     }), function(req, res){
-        if (req.body.secretWord === "#Bumping12"){
+        if (req.body.secretWord === process.env.SECRETWORD){
             res.redirect("/posts");
         }
         else{
