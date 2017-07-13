@@ -28,7 +28,7 @@ router.post("/register", function(req, res){
             });
         });
     } else{
-        req.flash("error", "Incorrect Secret Word");
+        req.flash("error", "Incorrect secret word");
         return res.render("register");
     }
 });
@@ -41,9 +41,16 @@ router.get("/login", function(req, res){
 //handling login logic
 router.post("/login", passport.authenticate("local", 
     {
-        successRedirect: "/posts",
         failureRedirect: "/login"
     }), function(req, res){
+        if (req.body.secretWord === "#Bumping12"){
+            res.redirect("/posts");
+        }
+        else{
+            req.logout();
+            req.flash("error", "Incorrect secret word");
+            res.redirect("/login");
+        }
 });
 
 // logout route
