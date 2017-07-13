@@ -28,7 +28,8 @@ router.post("/register", function(req, res){
             });
         });
     } else{
-        req.flash("error");
+        req.flash("error", "Incorrect Secret Word");
+        return res.render("register");
     }
 });
 
