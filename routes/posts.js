@@ -7,7 +7,7 @@ var fs = require("fs");
 
 
 //INDEX - show all posts
-router.get("/", function(req, res){
+router.get("/", middleware.isLoggedIn, function(req, res){
     // Get all posts from DB
     Post.find({}, function(err, allPosts){
        if(err){
