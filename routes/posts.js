@@ -24,7 +24,7 @@ router.post("/", middleware.isLoggedIn, function(req, res){
     var name = req.body.name;
     var image = { data:fs.readFileSync(req.files[0].path),
                     contentType: "image/png" };
-    var base64String = image.data.buffer.toString('base64');
+    var base64String = image.data.toString('base64');
     var desc = req.body.description;
     var author = {
         id: req.user._id,
