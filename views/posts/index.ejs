@@ -15,7 +15,7 @@
         <% posts.forEach(function(post){ %>
             <div class="col-md-3 col-sm-6">
                 <div class="thumbnail">
-                   <img src="<%= post.image %>">
+                   <img src="data:image/jpeg;base64,<%= post.base64 %>">
                    <div class="caption">
                        <h4><%= post.name %></h4>
                    </div>

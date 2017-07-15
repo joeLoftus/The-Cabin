@@ -13,7 +13,7 @@
         </div>
         <div class="col-md-9">
             <div class="thumbnail">
-                <img class="img-responsive" src="<%= post.image %>">
+                <img class="img-responsive" src="data:image/jpeg;base64,<%= post.base64 %>">
                 <div class="caption-full">
                     <h4><a><%=post.name%></a></h4>
                     <p><%= post.description %></p>

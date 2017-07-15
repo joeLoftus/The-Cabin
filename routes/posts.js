@@ -2,6 +2,8 @@ var express = require("express");
 var router  = express.Router();
 var Post = require("../models/post");
 var middleware = require("../middleware");
+var multer = require("multer");
+var fs = require("fs");
 
 
 //INDEX - show all posts
@@ -18,15 +20,17 @@ router.get("/", function(req, res){
 
 //CREATE - add new post to DB
 router.post("/", middleware.isLoggedIn, function(req, res){
-    // get data from form and add to posts array
+    // // get data from form and add to posts array
     var name = req.body.name;
-    var image = req.body.image;
+    var image = { data:fs.readFileSync(req.files[0].path),
+                    contentType: "image/png" };
+    var base64String = image.data.buffer.toString('base64');
     var desc = req.body.description;
     var author = {
         id: req.user._id,
         username: req.user.username
-    }
-    var newPost = {name: name, image: image, description: desc, author:author}
+    };
+    var newPost = {name: name, image: image, base64: base64String, description: desc, author:author}
     // Create a new post and save to DB
     Post.create(newPost, function(err, newlyCreated){
         if(err){
@@ -37,6 +41,7 @@ router.post("/", middleware.isLoggedIn, function(req, res){
             res.redirect("/posts");
         }
     });
+
 });
 
 //NEW - show form to create new post
@@ -58,14 +63,14 @@ router.get("/:id", function(req, res){
     });
 });
 
-// EDIT CAMPGROUND ROUTE
+// EDIT POST ROUTE
 router.get("/:id/edit", middleware.checkPostOwnership, function(req, res){
     Post.findById(req.params.id, function(err, foundPost){
         res.render("posts/edit", {post: foundPost});
     });
 });
 
-// UPDATE CAMPGROUND ROUTE
+// UPDATE POST ROUTE
 router.put("/:id",middleware.checkPostOwnership, function(req, res){
     // find and update the correct post
     Post.findByIdAndUpdate(req.params.id, req.body.post, function(err, updatedPost){
@@ -78,7 +83,7 @@ router.put("/:id",middleware.checkPostOwnership, function(req, res){
     });
 });
 
-// DESTROY CAMPGROUND ROUTE
+// DESTROY POST ROUTE
 router.delete("/:id",middleware.checkPostOwnership, function(req, res){
    Post.findByIdAndRemove(req.params.id, function(err){
       if(err){

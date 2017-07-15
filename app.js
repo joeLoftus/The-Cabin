@@ -6,6 +6,8 @@ var express     = require("express"),
     passport    = require("passport"),
     LocalStrategy = require("passport-local"),
     methodOverride = require("method-override"),
+    multer      = require("multer"),
+    fs          = require("fs"),
     Post  = require("./models/post"),
     Comment     = require("./models/comment"),
     User        = require("./models/user"),
@@ -18,8 +20,6 @@ var commentRoutes    = require("./routes/comments"),
 
 
 mongoose.connect(process.env.DATABASEURL);
-
-
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
@@ -46,6 +46,12 @@ app.use(function(req, res, next){
    res.locals.success = req.flash("success");
    next();
 });
+
+app.use(multer({ dest: "./uploads/",
+    rename: function (fieldname, filename) {
+   return filename;
+ },
+}).any());
 
 app.use("/", indexRoutes);
 app.use("/posts", postRoutes);
