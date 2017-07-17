@@ -1,5 +1,15 @@
 <% include ../partials/header %> 
 
+ <div class="col-lg-2 visible-lg fixed">
+     <h4>Wenatche National Forest Alerts</h4>
+     <ul>
+         <% for (i = 0; i< numRSSItems; i++){ %>
+                    <li>
+                        <a href = <%=rssItems[i].link%>><%= rssItems[i].title + ' ' + dates[i] %></a>
+                    </li>
+        <% } %>
+    </ul>
+ </div>
  <div class="container">
      <header class="jumbotron">
          <div class="container">
@@ -26,6 +36,7 @@
             </div>
         <% }); %>
     </div>
+    
 </div>
 
 <% include ../partials/footer %>

@@ -4,7 +4,8 @@ var Post = require("../models/post");
 var middleware = require("../middleware");
 var multer = require("multer");
 var fs = require("fs");
-
+var parser = require('rss-parser');
+var numRSSItems = 5;
 
 //INDEX - show all posts
 router.get("/", middleware.isLoggedIn, function(req, res){
@@ -13,10 +14,29 @@ router.get("/", middleware.isLoggedIn, function(req, res){
        if(err){
            console.log(err);
        } else {
-          res.render("posts/index",{posts:allPosts});
-       }
+            parser.parseURL('https://www.fs.usda.gov/wps/PA_WIDConsumption/rssgetfile?xFSENavChannel00=110617&xFSENavChannel02=120000000000000&pathinfo=/wps/portal/fsinternet/cs/alerts/okawen/alerts-notices/!ut/p/z1/04_Sj9CPykssy0xPLMnMz0vMAfIjo8ziDfxNDDwNwxydLA1cjbyDTV1cjA0gQD8crMAIynW0MPD38AjzC_MxgCmIIka_AQ7gSKx-3Aqi8BvvRcgCYAgYFfk6-6brRxUklmToZual5etH5Gcnlqfm6Uck5qQWlRTr5uWXZCanFgNdEwU2D194EHJRQW5oaESVj4dBpqMiAG7x-3w!/dz/d5/L2dJQSEvUUt3QS80TmxFL1o2XzBPNDBJMVZBQjkwRTJLUzVERDMwMDAwMDAw/?navtype=BROWSEBYSUBJECT&desc=alerts&forestname=', function(err, parsed) {
+                 var dates = [];
+                 if (err){
+                     console.log("err");
+                     dates[0] = "This feed has been removed by the forrest service";
+                     var errMsg = "This feed has been removed by the forrest service";
+                     res.render("posts/index",{posts:allPosts, rssItems: errMsg, dates: dates, numRSSItems: 1});
+                 }
+                 else{
+                    for (var i =0; i<numRSSItems; i++){
+                        var newDate = new Date (parsed.feed.entries[i].pubDate);
+                        dates[i] =  (newDate.getMonth() + 1).toString() + "/";
+                        dates[i] += newDate.getDate() + "/";
+                        dates[i] += newDate.getFullYear();
+                        }
+                    res.render("posts/index",{posts:allPosts, rssItems: parsed.feed.entries, dates: dates, numRSSItems: numRSSItems});
+                }
+                
+            });
+        }
     });
 });
+
 
 //CREATE - add new post to DB
 router.post("/", middleware.isLoggedIn, function(req, res){
