@@ -2,6 +2,16 @@ body {
   background-color: #000;
 }
 
+.btn {
+  color: #EFEFE8;
+  background-color: #507642;
+  border-color: #456639;
+  width: 80px;}
+  
+.btn:hover {
+  color: #fff;
+  background-color: #507630;}
+
 #landing-header {
   z-index: 1;
   position: relative;
@@ -10,7 +20,7 @@ body {
 }
 
 #landing-header h1 {
-  color: #fff;
+  color: #EFEFE8;
 }
 
 .slideshow { 
