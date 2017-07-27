@@ -17,3 +17,28 @@
 .fa{
     color: #507642;
 }
+
+#weather {
+    font-size: 1.1em
+}
+
+.WNFAlerts{
+    color:#A37B45;
+}
+
+#WNFTitle{
+    text-decoration: underline;
+}
+
+.slow-spin {
+  -webkit-animation: fa-spin 10s infinite linear;
+  animation: fa-spin 10s infinite linear;
+}
+
+.navbar a:hover{
+     color: #60401F !important;
+}
+
+#bottomTrees{
+    width: 100%;
+}

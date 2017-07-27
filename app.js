@@ -12,7 +12,8 @@ var express     = require("express"),
     Comment     = require("./models/comment"),
     User        = require("./models/user"),
     seedDB      = require("./seeds"),
-    parser = require('rss-parser');
+    parser      = require('rss-parser'),
+    YQL         = require('yql');
     
 //requiring routes
 var commentRoutes    = require("./routes/comments"),
@@ -53,8 +54,6 @@ app.use(multer({ dest: "./uploads/",
    return filename;
  },
 }).any());
- 
-
 
 app.use("/", indexRoutes);
 app.use("/posts", postRoutes);
