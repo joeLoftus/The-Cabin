@@ -46,11 +46,13 @@ router.post("/", middleware.isLoggedIn, function(req, res){
                     contentType: "image/png" };
     var base64String = image.data.toString('base64');
     var desc = req.body.description;
+    var today = new Date();
+    var date = (today.getMonth()+1)+'-'+today.getDate() +'-'+ today.getFullYear();
     var author = {
         id: req.user._id,
         username: req.user.username
     };
-    var newPost = {name: name, image: image, base64: base64String, description: desc, author:author}
+    var newPost = {name: name, image: image, base64: base64String, description: desc, author:author, date: date};
     // Create a new post and save to DB
     Post.create(newPost, function(err, newlyCreated){
         if(err){

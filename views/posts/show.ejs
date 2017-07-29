@@ -7,7 +7,7 @@
                 <li class="list-group-item active"><h4><%=post.name%></h4></li>
                 <li class="list-group-item"><p><%= post.description %></p></li>
                 <li class="list-group-item"><p>
-                        <em>Submitted By <%= post.author.username %></em>
+                        <em>Submitted By <%= post.author.username %> on <%=post.date%></em>
                     </p></li>
             </div>
         </div>
@@ -18,7 +18,7 @@
                     <h4><a><%=post.name%></a></h4>
                     <p><%= post.description %></p>
                     <p>
-                        <em>Submitted By <%= post.author.username %></em>
+                        <em>Submitted By <%= post.author.username %> on <%=post.date%></em>
                     </p>
                     <% if(currentUser && post.author.id.equals(currentUser._id)){ %>
                         <a class="btn btn-xs btn-warning" href="/posts/<%= post._id %>/edit">Edit</a>
