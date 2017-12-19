@@ -1,25 +1,19 @@
-/*body background = #E9E2AE*/
-/*jumbotron background = #977953*/
-/*button background = #738035*/
-/*navbar inverse color = #332C2F*/
-/*navbar inverse text color = #928951*/
-
 body{
-    background-color: #E9E2AE !important
+    background-color: #928951;
 }
 
 .jumbotron{
-    background-color: #977953 !important
+    background-color: #977953;
 }
 
 .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
-    background-color: #738035 !important;
+    background-color: #738035;
 }
 
 .navbar-inverse {
-    color: #332C2F !important;
+    color: #332C2F;
 }
 
 .navbar-inverse li a{
-    color: #928951 !important;
+    color: #928951;
     }
